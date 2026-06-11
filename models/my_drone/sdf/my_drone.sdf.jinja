@@ -2,8 +2,8 @@
 <sdf version='1.6'>
 
   {# import templates from the MRS UAV System #}
-  {%- import 'mrs_robots_description/sdf/component_snippets.sdf.jinja' as mrs_components -%}
-  {%- import 'mrs_robots_description/sdf/generic_components.sdf.jinja' as mrs_generic -%}
+  {%- import 'pairs_robots_description/sdf/component_snippets.sdf.jinja' as pairs_components -%}
+  {%- import 'pairs_robots_description/sdf/generic_components.sdf.jinja' as pairs_generic -%}
 
   {# import additional components from this package, path is relative to package root #}
   {%- import 'models/my_drone/sdf/custom_macros.sdf.jinja' as custom_macros -%}
@@ -51,7 +51,7 @@
   {# Meshes {--> #}
   {%- set arm_mesh_file = 'model://my_drone/meshes/arm.dae' -%} {# from this package #}
   {%- set prop_mesh_file = 'model://my_drone/meshes/propeller.dae' -%} {# from this package #}
-  {%- set pixhawk_mesh_file = 'model://mrs_robots_description/meshes/sensors/pixhawk.dae' -%} {# from mrs_uav_gazebo_simulation #}
+  {%- set pixhawk_mesh_file = 'model://pairs_robots_description/meshes/sensors/pixhawk.dae' -%} {# from pairs_uav_gazebo_simulation #}
   {%- set mesh_scale = '1 1 1' -%}
   {%- set prop_mesh_scale_ccw = '0.8 0.8 1' -%}
   {%- set prop_mesh_scale_cw = '-0.8 0.8 1' -%}
@@ -81,7 +81,7 @@
     <link name="{{ root }}">
 
       <!-- Body physics {-->
-      {{ mrs_generic.multirotor_physics_macro(
+      {{ pairs_generic.multirotor_physics_macro(
         mass = mass,
         body_radius = body_radius,
         body_height = body_height,
@@ -125,7 +125,7 @@
       <!--}-->
 
       <!-- Arms {-->
-      {{ mrs_generic.visual_mesh_macro(
+      {{ pairs_generic.visual_mesh_macro(
         name = 'front_right_arm',
         mesh_file = arm_mesh_file,
         mesh_scale = mesh_scale,
@@ -138,7 +138,7 @@
         yaw = math.radians(-37))
       }}
 
-      {{ mrs_generic.visual_mesh_macro(
+      {{ pairs_generic.visual_mesh_macro(
         name = 'front_left_arm',
         mesh_file = arm_mesh_file,
         mesh_scale = mesh_scale,
@@ -151,7 +151,7 @@
         yaw = math.radians(37))
       }}
 
-      {{ mrs_generic.visual_mesh_macro(
+      {{ pairs_generic.visual_mesh_macro(
         name = 'back_left_arm',
         mesh_file = arm_mesh_file,
         mesh_scale = mesh_scale,
@@ -164,7 +164,7 @@
         yaw = math.radians(143))
       }}
 
-      {{ mrs_generic.visual_mesh_macro(
+      {{ pairs_generic.visual_mesh_macro(
         name = 'back_right_arm',
         mesh_file = arm_mesh_file,
         mesh_scale = mesh_scale,
@@ -179,7 +179,7 @@
       <!--}-->
 
       <!-- Pixhawk {-->
-      {{ mrs_generic.visual_mesh_macro(
+      {{ pairs_generic.visual_mesh_macro(
         name = 'pixhawk',
         mesh_file = pixhawk_mesh_file,
         mesh_scale = mesh_scale,
@@ -343,7 +343,7 @@
     }
     ]
     -%}
-    {{ mrs_components.propellers_macro(
+    {{ pairs_components.propellers_macro(
       prop_list = prop_list,
       rotor_velocity_slowdown_sim = rotor_velocity_slowdown_sim,
       motor_constant = motor_constant,
@@ -374,7 +374,7 @@
     {%- set lidar_topic = '/lidar' -%}
 
     <!-- Gazebo ground truth {-->
-    {{ mrs_generic.gazebo_groundtruth_macro(
+    {{ pairs_generic.gazebo_groundtruth_macro(
       home_latitude = 0,
       home_longitude = 0,
       home_altitude = 0)
@@ -382,7 +382,7 @@
     <!--}-->
 
     <!-- GPS {-->
-    {{ mrs_generic.gazebo_gps_macro(
+    {{ pairs_generic.gazebo_gps_macro(
       gps_name = 'gps0',
       parent_link = root,
       update_rate = 10,
@@ -403,7 +403,7 @@
     <!--}-->
 
     <!-- Magnetometer {-->
-    {{ mrs_generic.gazebo_magnetometer_macro(
+    {{ pairs_generic.gazebo_magnetometer_macro(
       pub_rate = 100,
       noise_density = 0.0004,
       random_walk = 0.0000064,
@@ -413,7 +413,7 @@
     <!--}-->
 
     <!-- Barometer {-->
-    {{ mrs_generic.gazebo_barometer_macro(
+    {{ pairs_generic.gazebo_barometer_macro(
       baro_topic = baro_topic,
       pub_rate = 50,
       baro_drift_pa_per_sec = 0)
@@ -421,7 +421,7 @@
     <!--}-->
 
     <!-- Mavlink interface (customized) {-->
-    {{ mrs_generic.gazebo_mavlink_interface_macro(
+    {{ pairs_generic.gazebo_mavlink_interface_macro(
       imu_topic = imu_topic,
       mag_topic = mag_topic,
       baro_topic = baro_topic,
@@ -432,7 +432,7 @@
 
     <!-- IMU {-->
     <!-- NOTE: IMU has to be last, otherwise the simulation is extremely slow! -->
-    {{ mrs_generic.gazebo_imu_macro(
+    {{ pairs_generic.gazebo_imu_macro(
       imu_name = 'imu',
       parent_link = root,
       imu_topic = imu_topic,
@@ -460,7 +460,7 @@
     {# ================================================================== #}
 
     {# Ground truth {--> #}
-    {{ mrs_components.ground_truth_macro(
+    {{ pairs_components.ground_truth_macro(
       parent_link = root,
       x = 0,
       y = 0,
@@ -473,7 +473,7 @@
     {# <!--}--> #}
 
     {# Garmin rangefinder (laser altimeter) {--> #}
-    {%- set garmin_rangefinder = mrs_components.garmin_down_macro(
+    {%- set garmin_rangefinder = pairs_components.garmin_down_macro(
       parent_link = root,
       x = 0.13,
       y = 0,
@@ -505,7 +505,7 @@
     {# Optional sensor mount {--> #}
     {%- set optional_sensor_mount -%}
     <link name="optional_sensor_mount_link">
-      {{ mrs_generic.zero_inertial_macro() }}
+      {{ pairs_generic.zero_inertial_macro() }}
       <pose>0.13 0 0 0.01 0 0</pose>
       <visual name="optional_sensor_mount_visual">
         <pose>0 0 0 0 0 0</pose>

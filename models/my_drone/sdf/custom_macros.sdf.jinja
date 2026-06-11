@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sdf version='1.6'>
 
-{%- import 'mrs_robots_description/sdf/generic_components.sdf.jinja' as mrs_generic -%}
+{%- import 'pairs_robots_description/sdf/generic_components.sdf.jinja' as pairs_generic -%}
 
 {# visual_cylinder_macro {--> #}
 {%- macro visual_cylinder_macro(name, height, radius, color, x, y, z, roll, pitch, yaw) -%}
@@ -28,16 +28,16 @@
 {%- macro visual_cylinder_with_collision_macro(name, height, radius, color, x, y, z, roll, pitch, yaw) -%}
   {# a generic macro to add a colored cylinder with a collision hitbox. Must be placed inside a link block #}
   {{ visual_cylinder_macro(name, height, radius, color, x, y, z, roll, pitch, yaw) }}
-  {{ mrs_generic.collision_cylinder_macro(name, height, radius, x, y, z, roll, pitch, yaw) }}
+  {{ pairs_generic.collision_cylinder_macro(name, height, radius, x, y, z, roll, pitch, yaw) }}
 {%- endmacro -%}
 {# <!--}--> #}
 
 {# custom_monochrome_camera_macro {--> #}
 {%- macro custom_monochrome_camera_macro(camera_name, parent_link, x, y, z, roll, pitch, yaw, spawner_args) -%}
-  {#- an optional sensor that can be enabled and reconfigured by the MRS drone spawner -#}
+  {#- an optional sensor that can be enabled and reconfigured by the PAIRS drone spawner -#}
 
   {#- spawner API hook {--> -#}
-  {#- this part allows dynamic configuration of this component by the mrs_drone_spawner -#}
+  {#- this part allows dynamic configuration of this component by the pairs_drone_spawner -#}
   {%- set spawner_keyword = 'enable-custom-monochrome-camera' -%} {# access this macro from the drone spawner #}
   {%- set spawner_description = 'Add a custom monochrome camera to the drone' -%} {# displayed when --help is called in the drone spawner #}
   {%- set spawner_default_args = {'update_rate': 45, 'noise': 0.004} -%} {# internal params that can be overriden in spawn-time #}
@@ -47,7 +47,7 @@
   {%- if spawner_keyword in spawner_args.keys() -%}
 
     {#- setup default args, override values with user input if possible -#}
-    {{ mrs_generic.handle_spawner_args(spawner_keyword, spawner_default_args, spawner_args) }}
+    {{ pairs_generic.handle_spawner_args(spawner_keyword, spawner_default_args, spawner_args) }}
     {#- we now have data in spawner_args[spawner_keyword]['update_rate'] and spawner_args[spawner_keyword]['noise'] -#}
 
     {%- set min_distance = 0.1 -%}
@@ -59,7 +59,7 @@
     <!-- custom monochrome camera {-->
     <link name="{{ camera_name }}_link">
       <pose>{{ x }} {{ y }} {{ z }} {{ roll }} {{ pitch }} {{ yaw }}</pose>
-      {{ mrs_generic.zero_inertial_macro() }}
+      {{ pairs_generic.zero_inertial_macro() }}
       <sensor name="{{ camera_name }}_sensor" type="camera">
         <update_rate>{{ spawner_args[spawner_keyword]['update_rate'] }}</update_rate>
         <camera>
