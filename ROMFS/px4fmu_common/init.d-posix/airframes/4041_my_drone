@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# @name My Drone
+#
+# @type Quadrotor H
+#
+# @maintainer Petr Stibinger <petr.stibinger@fel.cvut.cz>
+#
+
+. ${R}etc/init.d/rc.mc_defaults
+
+set MIXER quadrotor_h
