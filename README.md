@@ -1,6 +1,6 @@
-# MRS Gazebo custom drone example
+# PAIRS Gazebo custom drone example
 
-This package supplements a tutorial on how to create a custom drone model and how to use it with the MRS UAV System and Gazebo simulator.
+This package supplements a tutorial on how to create a custom drone model and how to use it with the PAIRS UAV System and Gazebo simulator.
 
 ![](.fig/custom_drone.jpg)
 
@@ -12,9 +12,9 @@ It covers the following steps:
 - Custom directory setup
 - Model template creation in Jinja
 - Configuring a custom airframe for PX4
-- Adding the custom drone to the MRS drone spawner
-- Running the simulation with the MRS UAV System
-- Adding a custom optional sensor (configurable by the MRS drone spawner)
+- Adding the custom drone to the PAIRS drone spawner
+- Running the simulation with the PAIRS UAV System
+- Adding a custom optional sensor (configurable by the PAIRS drone spawner)
 
 ## Running the full example
 
