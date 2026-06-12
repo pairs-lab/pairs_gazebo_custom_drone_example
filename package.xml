@@ -3,7 +3,7 @@
 
   <name>pairs_gazebo_custom_drone_example</name>
   <version>1.0.0</version>
-  <description>An example drone extending the MRS simulation</description>
+  <description>An example drone extending the PAIRS simulation</description>
 
   <author email="canhthanh@vnu.edu.vn">Thanh Nguyen Canh</author>
   <maintainer email="canhthanh@vnu.edu.vn">Thanh Nguyen Canh</maintainer>
