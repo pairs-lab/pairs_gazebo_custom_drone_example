@@ -4,9 +4,6 @@ This package supplements a tutorial on how to create a custom drone model and ho
 
 ![](.fig/custom_drone.jpg)
 
-The tutorial is available here:
-https://ctu-mrs.github.io/docs/simulation/gazebo/gazebo/custom_drone.html
-
 It covers the following steps:
 
 - Custom directory setup
